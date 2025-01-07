@@ -36,7 +36,7 @@ class MyApp extends StatelessWidget {
         colorScheme: const ColorScheme.dark(),
         useMaterial3: true,
       ),
-      home: const MyHomePage(title: 'Quick KRW to MYR Converter'),
+      home: const MyHomePage(title: 'Quick JPY to MYR Converter'),
     );
   }
 }
@@ -62,15 +62,16 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   Timer? _debounce;
 
-  final TextEditingController _krwController = TextEditingController();
+  final TextEditingController _jpyController = TextEditingController();
   final TextEditingController _myrController = TextEditingController();
   final TextEditingController _rateController = TextEditingController();
 
   double _convertedAmount = 0.0;
 
   final String _exchangeRateKey = 'EXCHANGE_RATE';
+  final double _defaultRate = 3.05667;
 
-  void _onChangeForKrw(text) {
+  void _onChangeForJpy(text) {
     _convertCurrency(true);
   }
 
@@ -78,31 +79,31 @@ class _MyHomePageState extends State<MyHomePage> {
     _convertCurrency(false);
   }
 
-  void _convertCurrency(bool isKrwToMyr) {
-    double krw = double.tryParse(_krwController.text) ?? 0.0;
+  void _convertCurrency(bool isJpyToMyr) {
+    double jpy = double.tryParse(_jpyController.text) ?? 0.0;
     double myr = double.tryParse(_myrController.text) ?? 0.0;
     double rate = double.tryParse(_rateController.text) ?? 0.0;
 
-    if (isKrwToMyr) {
-      _convertedAmount = krw / 1000 * rate;
+    if (isJpyToMyr) {
+      _convertedAmount = jpy / 1000 * rate;
     } else {
       _convertedAmount = myr * 1000 / rate;
     }
 
     setState(() {
-      if (isKrwToMyr) {
+      if (isJpyToMyr) {
         _myrController.text = _convertedAmount.toStringAsFixed(2);
       } else {
-        _krwController.text = _convertedAmount.round().toString();
+        _jpyController.text = _convertedAmount.round().toString();
       }
     });
   }
 
   void _setDefaultRate() async {
     setState(() {
-      _rateController.text = '3.195';
+      _rateController.text = _defaultRate.toString();
     });
-    await _saveExchangeRate('3.195');
+    await _saveExchangeRate(_defaultRate.toString());
   }
 
   void _onChangeForRate(String text) async {
@@ -195,7 +196,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                            '1000 KRW to',
+                            '1000 JPY to',
                             style: themeData.textTheme.bodyLarge,
                           ),
                           const SizedBox(width: 12),
@@ -245,11 +246,11 @@ class _MyHomePageState extends State<MyHomePage> {
                         children: [
                           Expanded(
                             child: TextField(
-                              controller: _krwController,
+                              controller: _jpyController,
                               style: const TextStyle(fontSize: 28),
                               decoration: const InputDecoration(
                                 border: OutlineInputBorder(),
-                                labelText: 'KRW',
+                                labelText: 'JPY',
                               ),
                               keyboardType:
                                   const TextInputType.numberWithOptions(
@@ -259,8 +260,8 @@ class _MyHomePageState extends State<MyHomePage> {
                                     RegExp('[0-9.]+')),
                               ],
                               autofocus: true,
-                              onTap: _krwController.selectAll,
-                              onChanged: _onChangeForKrw,
+                              onTap: _jpyController.selectAll,
+                              onChanged: _onChangeForJpy,
                             ),
                           ),
                           const SizedBox(width: 8),

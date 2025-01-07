@@ -1,7 +1,7 @@
 package_rename_config:
   android:
-    app_name: KRW to MYR
-    package_name: com.maxchu92.krwtomyr
+    app_name: JPY to MYR
+    package_name: com.maxchu92.jpytomyr
     override_old_package: com.example.example
     lang: kotlin
 
@@ -9,7 +9,7 @@ package_rename_config:
     app_name: Package Rename Demo
     bundle_name: renamedemo
     override_old_package: com.example.example
-    package_name: com.maxchu92.krwtomyr
+    package_name: com.maxchu92.jpytomyr
 
   web:
     app_name: Package Rename Demo
@@ -17,7 +17,7 @@ package_rename_config:
 
   linux:
     app_name: Package Rename Demo
-    package_name: com.maxchu92.krwtomyr
+    package_name: com.maxchu92.jpytomyr
     exe_name: renamedemo-linux-x64
 
   windows:
@@ -28,5 +28,5 @@ package_rename_config:
 
   macos:
     app_name: Package Rename Demo
-    package_name: com.maxchu92.krwtomyr
+    package_name: com.maxchu92.jpytomyr
     copyright_notice: Copyright ©️ 2025 Maxchu92. All rights reserved.
